@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import FormGroup from './components/FormGroup';
 
-function App() {
+const App = () => {
+  /* eslint-disable max-len */
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-3xl text-center p-4">Simple Multi Level Marketing</h1>
+      <div className="mx-64">
+        <FormGroup label={'Perhitungan Bonus'} button={'Calculate = '} form={['select', 'level']} />
+        <FormGroup label={'Registrasi ID Member Baru'} button={'Register'} form={['input', 'parent']} />
+        <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'level']} />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
