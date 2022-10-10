@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
-const FormGroup = ({label, form, data, setData, ...props}) => {
+const FormGroup = ({label, form, data, setData, resultRegister, ...props}) => {
   /* eslint-disable max-len */
   return (
     <>
@@ -40,7 +40,7 @@ const FormGroup = ({label, form, data, setData, ...props}) => {
           <Button {...props} />
         </div>
         <div className="basis-1/3">
-          <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled />
+          <Input disabled value={resultRegister?.member} />
         </div>
       </div>
     </>
@@ -52,6 +52,7 @@ FormGroup.propTypes = {
   form: PropTypes.array,
   data: PropTypes.object,
   setData: PropTypes.func,
+  resultRegister: PropTypes.object,
 };
 
 export default FormGroup;

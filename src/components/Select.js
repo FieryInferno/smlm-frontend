@@ -25,7 +25,6 @@ const SelectAjax = ({placeholder, data, loading, ...props}) => {
       isSearchable={true}
       options={options}
       placeholder={placeholder}
-      // onChange={onChange}
       {...props}
     />
   );
