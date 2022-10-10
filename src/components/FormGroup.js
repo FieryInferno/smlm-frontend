@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
-const FormGroup = ({label, form, ...props}) => {
+const FormGroup = ({label, form, data, setData, ...props}) => {
   /* eslint-disable max-len */
   return (
     <>
@@ -15,14 +15,25 @@ const FormGroup = ({label, form, ...props}) => {
           {form[0] === 'select' ? (
             <SelectMember placeholder={'Select Member ID'} />
           ) : (
-            <Input disabled={false} placeholder={'Inisial Member baru'} />
+            <Input
+              disabled={false}
+              placeholder={'Inisial Member baru'}
+              value={data.member}
+              onChange={(e) => setData({
+                ...data,
+                member: e.target.value,
+              })}
+            />
           )}
         </div>
         <div className="basis-1/4">
           {form[1] === 'level' ? (
             <SelectAjax placeholder={'Pilih Level'} />
           ) : (
-            <SelectMember placeholder={'Pilih Parent'} />
+            <SelectMember placeholder={'Pilih Parent'} onChange={(e) => setData({
+              ...data,
+              parent_id: e.value,
+            })} />
           )}
         </div>
         <div className="basis-1/6">
@@ -39,6 +50,8 @@ const FormGroup = ({label, form, ...props}) => {
 FormGroup.propTypes = {
   label: PropTypes.string,
   form: PropTypes.array,
+  data: PropTypes.object,
+  setData: PropTypes.func,
 };
 
 export default FormGroup;

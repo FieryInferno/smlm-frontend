@@ -4,8 +4,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getAllMember} from '../slices/member';
 import PropTypes from 'prop-types';
 
-const SelectMember = ({placeholder}) => {
-  const {loading, rows} = useSelector((state) => state.member);
+const SelectMember = ({placeholder, ...props}) => {
+  const {loadingGetMember, rows} = useSelector((state) => state.member);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,8 +13,9 @@ const SelectMember = ({placeholder}) => {
         .catch((error) => console.log(error));
   }, []);
 
+  /* eslint-disable max-len */
   return (
-    <SelectAjax placeholder={placeholder} data={rows} loading={loading} />
+    <SelectAjax placeholder={placeholder} data={rows} loading={loadingGetMember} {...props} />
   );
 };
 
