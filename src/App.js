@@ -9,7 +9,7 @@ const App = () => {
       <div className="mx-64">
         <FormGroup label={'Perhitungan Bonus'} button={'Calculate = '} form={['select', 'level']} />
         <FormGroup label={'Registrasi ID Member Baru'} button={'Register'} form={['input', 'parent']} />
-        <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'level']} />
+        <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'parent']} />
       </div>
     </>
   );

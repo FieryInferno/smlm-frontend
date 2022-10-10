@@ -9,7 +9,7 @@ const Input = ({disabled, placeholder = null}) => {
 };
 
 Input.propTypes = {
-  disabled: PropTypes.boolean,
+  disabled: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 

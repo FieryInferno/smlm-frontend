@@ -1,5 +1,6 @@
 import React from 'react';
-import Select from '../components/Select';
+import SelectAjax from '../components/Select';
+import SelectMember from '../components/SelectMember';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -12,16 +13,16 @@ const FormGroup = ({label, form, ...props}) => {
       <div className="flex flex-row gap-4">
         <div className="basis-1/4">
           {form[0] === 'select' ? (
-            <Select placeholder={'Select Member ID'} />
+            <SelectMember placeholder={'Select Member ID'} />
           ) : (
             <Input disabled={false} placeholder={'Inisial Member baru'} />
           )}
         </div>
         <div className="basis-1/4">
           {form[1] === 'level' ? (
-            <Select placeholder={'Pilih Level'} />
+            <SelectAjax placeholder={'Pilih Level'} />
           ) : (
-            <Select placeholder={'Pilih Parent'} />
+            <SelectMember placeholder={'Pilih Parent'} />
           )}
         </div>
         <div className="basis-1/6">
