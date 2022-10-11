@@ -1,25 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import SelectAjax from '../components/Select';
-import {useSelector, useDispatch} from 'react-redux';
-import {getAllMember} from '../slices/member';
 import PropTypes from 'prop-types';
+import MemberServices from '../services/member';
+import {populateError} from '../helpers';
 
 const SelectMember = ({placeholder, ...props}) => {
-  const {loadingGetMember, rows} = useSelector((state) => state.member);
-  const dispatch = useDispatch();
   const [param, setParam] = useState({limit: 7});
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const loadOption = async () => {
+    try {
+      setLoading(true);
+      const res = await MemberServices.getAll(param);
+      setData(res.data.data.rows);
+    } catch (error) {
+      populateError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    dispatch(getAllMember(param))
-        .catch((error) => console.log(error));
+    loadOption();
   }, [param]);
 
   /* eslint-disable max-len */
   return (
     <SelectAjax
       placeholder={placeholder}
-      data={rows}
-      loading={loadingGetMember}
+      data={data}
+      loading={loading}
       onInputChange={(e) => setParam({
         ...param,
         filter: e,
