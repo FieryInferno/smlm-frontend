@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FormGroup from './components/FormGroup';
-import {register} from './slices/member';
+import {register, getAllParent} from './slices/member';
 import {useDispatch, useSelector} from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import TreeView from './components/TreeView';
 
 const MySwal = withReactContent(Swal);
 
 const App = () => {
   const dispatch = useDispatch();
+  const {loadingGetParent, dataParent} = useSelector((state) => state.member);
+
   const [dataRegister, setDataRegister] = useState({
     member: '',
     parent_id: null,
@@ -58,6 +61,10 @@ const App = () => {
         });
   };
 
+  useEffect(() => {
+    dispatch(getAllParent());
+  }, []);
+
   /* eslint-disable max-len */
   return (
     <>
@@ -76,6 +83,7 @@ const App = () => {
         />
         <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'parent']} />
       </div>
+      <TreeView loading={loadingGetParent} member={dataParent} />
     </>
   );
 };

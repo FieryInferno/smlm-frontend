@@ -14,6 +14,18 @@ export const getAllMember = createAsyncThunk(
     },
 );
 
+export const getAllParent = createAsyncThunk(
+    'member/getAllParent',
+    async (param, {rejectWithValue}) => {
+      try {
+        const res = await MemberService.getAllParent(param);
+        return res.data.data;
+      } catch (error) {
+        return rejectWithValue(error.message);
+      };
+    },
+);
+
 export const register = createAsyncThunk(
     'member/register',
     async (data, {rejectWithValue}) => {
@@ -48,6 +60,16 @@ const memberSlice = createSlice({
     },
     [getAllMember.rejected]: (state, action) => {
       state.loadingGetMember = false;
+    },
+    [getAllParent.pending]: (state, action) => {
+      state.loadingGetParent = true;
+    },
+    [getAllParent.fulfilled]: (state, action) => {
+      state.loadingGetParent = false;
+      state.dataParent = action.payload;
+    },
+    [getAllParent.rejected]: (state, action) => {
+      state.loadingGetParent = false;
     },
     [register.pending]: (state, action) => {
       state.loadingRegister = true;

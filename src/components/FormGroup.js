@@ -32,7 +32,7 @@ const FormGroup = ({label, form, data, setData, resultRegister, ...props}) => {
           ) : (
             <SelectMember placeholder={'Pilih Parent'} onChange={(e) => setData({
               ...data,
-              parent_id: e.value,
+              parent_id: e?.value,
             })} />
           )}
         </div>

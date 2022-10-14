@@ -19,7 +19,6 @@ const SelectAjax = ({placeholder, data, loading, ...props}) => {
   /* eslint-disable max-len */
   return (
     <Select
-      defaultValue={options[0]}
       isLoading={loading}
       isClearable={true}
       isSearchable={true}
