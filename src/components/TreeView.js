@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TreeView = ({loading = true, member}) => {
+  console.log(member);
   /* eslint-disable max-len */
   const renderTree = (data, level = 0, marginLeft = 2) => {
     const uList = [];
@@ -17,7 +18,7 @@ const TreeView = ({loading = true, member}) => {
           <li className="mt-4" key={key}>
             <div className={`bg-${color[level]}-500 border-2 ${color[level] ? 'border-' + color[level] + '-800' : 'border-black'} text-${color[level] ? 'white' : 'black'} white p-4 inline-block`}>
               <div>{data.member}</div>
-              {/* <div>Bonus</div> */}
+              <div>(Bonus: ${data.bonus})</div>
             </div>
             {data.children ? (
               <ul className="max-w-md list-disc list-inside text-gray-500 list-none" style={{marginLeft: `${marginLeft}rem`}}>{renderTree(data.children, level + 1, marginLeft)}</ul>
