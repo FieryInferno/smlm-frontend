@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TreeView = ({loading = true, member}) => {
-  console.log(member);
   /* eslint-disable max-len */
   const renderTree = (data, level = 0, marginLeft = 2) => {
     const uList = [];

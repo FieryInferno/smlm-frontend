@@ -73,10 +73,12 @@ const memberSlice = createSlice({
     },
     [register.pending]: (state, action) => {
       state.loadingRegister = true;
+      state.loadingGetParent = true;
     },
     [register.fulfilled]: (state, action) => {
+      const {payload} = action;
+      state.resultRegister = payload;
       state.loadingRegister = false;
-      state.resultRegister = action.payload;
     },
     [register.rejected]: (state, action) => {
       state.loadingRegister = false;

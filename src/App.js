@@ -11,6 +11,7 @@ const MySwal = withReactContent(Swal);
 const App = () => {
   const dispatch = useDispatch();
   const {loadingGetParent, dataParent} = useSelector((state) => state.member);
+  const [getParent, setGetParent] = useState();
 
   const [dataRegister, setDataRegister] = useState({
     member: '',
@@ -26,11 +27,11 @@ const App = () => {
     dispatch(register(dataRegister))
         .unwrap()
         .then((data) => {
+          setGetParent(Math.random());
           setDataRegister({
             member: '',
             parent_id: null,
           });
-
           MySwal.fire({
             title: 'Success',
             html: data.message,
@@ -63,7 +64,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getAllParent());
-  }, []);
+  }, [getParent]);
 
   /* eslint-disable max-len */
   return (
