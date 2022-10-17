@@ -25,3 +25,11 @@ export const populateError = (error) => {
     icon: 'error',
   });
 };
+
+export const populateSuccess = (data) => {
+  MySwal.fire({
+    title: 'Success',
+    html: data.message,
+    icon: 'success',
+  });
+};

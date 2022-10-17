@@ -58,6 +58,22 @@ export const getById = createAsyncThunk(
     },
 );
 
+export const migrateMember = createAsyncThunk(
+    'member/migrate',
+    async (data, {rejectWithValue}) => {
+      try {
+        const res = await MemberService.migrate(data);
+        return res.data.data;
+      } catch (error) {
+        return rejectWithValue(
+            _.isEmpty(error.response.data.message) ?
+              error.message :
+              error.response.data.message.errors,
+        );
+      }
+    },
+);
+
 const initialState = {};
 
 const memberSlice = createSlice({
@@ -106,6 +122,15 @@ const memberSlice = createSlice({
     },
     [getById.rejected]: (state, action) => {
       state.loadingGetById = false;
+    },
+    [migrateMember.pending]: (state, action) => {
+      state.migrate = true;
+    },
+    [migrateMember.fulfilled]: (state, action) => {
+      state.migrate = false;
+    },
+    [migrateMember.rejected]: (state, action) => {
+      state.migrate = false;
     },
   },
 });

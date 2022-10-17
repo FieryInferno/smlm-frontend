@@ -1,23 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import FormGroup from './components/FormGroup';
-import {register, getAllParent, getById} from './slices/member';
+import {register, getAllParent, getById, migrateMember} from './slices/member';
 import {useDispatch, useSelector} from 'react-redux';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import TreeView from './components/TreeView';
-
-const MySwal = withReactContent(Swal);
+import {populateError, populateSuccess} from './helpers';
 
 const App = () => {
   const dispatch = useDispatch();
   const {
-    loadingGetParent, dataParent, loadingCount, member,
+    loadingGetParent, dataParent, loadingCount, member, loadingMigrate,
   } = useSelector((state) => state.member);
   const [getParent, setGetParent] = useState();
 
   const [data, setData] = useState({
     member: '',
     parent_id: null,
+    id: null,
   });
 
   const {loadingRegister} = useSelector((state) => state.member);
@@ -31,33 +29,10 @@ const App = () => {
             member: '',
             parent_id: null,
           });
-          MySwal.fire({
-            title: 'Success',
-            html: data.message,
-            icon: 'success',
-          });
+          populateSuccess(data);
         })
         .catch((error) => {
-          let errorText;
-
-          if (Array.isArray(error)) {
-            // eslint-disable-next-line max-len
-            errorText = `<ul class="space-y-1 max-w-md list-disc list-inside text-red-600">`;
-
-            error.map((err) => {
-              errorText += `<li>${err.msg}</li>`;
-            });
-
-            errorText += '</ul>';
-          } else {
-            errorText = error;
-          }
-
-          MySwal.fire({
-            title: 'Failed',
-            html: errorText,
-            icon: 'error',
-          });
+          populateError(error);
         });
   };
 
@@ -66,7 +41,23 @@ const App = () => {
   }, [getParent]);
 
   const countBonus = () => {
-    dispatch(getById(data.parent_id));
+    dispatch(getById(data.id));
+  };
+
+  const migrate = () => {
+    dispatch(migrateMember(data))
+        .unwrap()
+        .then((data) => {
+          setGetParent(Math.random());
+          setData({
+            member: '',
+            parent_id: null,
+          });
+          populateSuccess(data);
+        })
+        .catch((error) => {
+          populateError(error);
+        });
   };
 
   /* eslint-disable max-len */
@@ -93,7 +84,15 @@ const App = () => {
           loading={loadingRegister}
           data={data}
         />
-        <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'parent']} />
+        <FormGroup
+          label={'Migrasi Member/Pindah Parent'}
+          button={'Migrate'}
+          form={['select', 'parent']}
+          loading={loadingMigrate}
+          onSubmit={migrate}
+          data={data}
+          setData={setData}
+        />
       </div>
       <TreeView loading={loadingGetParent} member={dataParent} />
     </>

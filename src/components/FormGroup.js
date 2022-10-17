@@ -14,7 +14,7 @@ const FormGroup = ({label, form, data, setData, member, ...props}) => {
           {form[0] === 'select' ? (
             <SelectMember placeholder={'Select Member ID'} onChange={(e) => setData({
               ...data,
-              parent_id: e?.value,
+              id: e?.value,
             })} />
           ) : (
             <Input
