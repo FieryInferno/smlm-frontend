@@ -42,6 +42,22 @@ export const register = createAsyncThunk(
     },
 );
 
+export const getById = createAsyncThunk(
+    'member/countBonus',
+    async (id, {rejectWithValue}) => {
+      try {
+        const res = await MemberService.get(id);
+        return res.data.data;
+      } catch (error) {
+        return rejectWithValue(
+            _.isEmpty(error.response.data.message) ?
+              error.message :
+              error.response.data.message.errors,
+        );
+      }
+    },
+);
+
 const initialState = {};
 
 const memberSlice = createSlice({
@@ -76,12 +92,20 @@ const memberSlice = createSlice({
       state.loadingGetParent = true;
     },
     [register.fulfilled]: (state, action) => {
-      const {payload} = action;
-      state.resultRegister = payload;
       state.loadingRegister = false;
     },
     [register.rejected]: (state, action) => {
       state.loadingRegister = false;
+    },
+    [getById.pending]: (state, action) => {
+      state.loadingGetById = true;
+    },
+    [getById.fulfilled]: (state, action) => {
+      state.loadingGetById = false;
+      state.member = action.payload;
+    },
+    [getById.rejected]: (state, action) => {
+      state.loadingGetById = false;
     },
   },
 });

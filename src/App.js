@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import FormGroup from './components/FormGroup';
-import {register, getAllParent} from './slices/member';
+import {register, getAllParent, getById} from './slices/member';
 import {useDispatch, useSelector} from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -10,25 +10,24 @@ const MySwal = withReactContent(Swal);
 
 const App = () => {
   const dispatch = useDispatch();
-  const {loadingGetParent, dataParent} = useSelector((state) => state.member);
+  const {
+    loadingGetParent, dataParent, loadingCount, member,
+  } = useSelector((state) => state.member);
   const [getParent, setGetParent] = useState();
 
-  const [dataRegister, setDataRegister] = useState({
+  const [data, setData] = useState({
     member: '',
     parent_id: null,
   });
 
-  const {
-    loadingRegister,
-    resultRegister,
-  } = useSelector((state) => state.member);
+  const {loadingRegister} = useSelector((state) => state.member);
 
   const registerMember = () => {
-    dispatch(register(dataRegister))
+    dispatch(register(data))
         .unwrap()
         .then((data) => {
           setGetParent(Math.random());
-          setDataRegister({
+          setData({
             member: '',
             parent_id: null,
           });
@@ -66,21 +65,33 @@ const App = () => {
     dispatch(getAllParent());
   }, [getParent]);
 
+  const countBonus = () => {
+    dispatch(getById(data.parent_id));
+  };
+
   /* eslint-disable max-len */
   return (
     <>
       <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-3xl text-center p-4">Simple Multi Level Marketing</h1>
       <div className="mx-64">
-        <FormGroup label={'Perhitungan Bonus'} button={'Calculate = '} form={['select', 'level']} />
+        <FormGroup
+          label={'Perhitungan Bonus'}
+          button={'Calculate = '}
+          form={['select']}
+          onSubmit={countBonus}
+          loading={loadingCount}
+          member={member}
+          data={data}
+          setData={setData}
+        />
         <FormGroup
           label={'Registrasi ID Member Baru'}
           button={'Register'}
           form={['input', 'parent']}
           onSubmit={registerMember}
-          setData={setDataRegister}
+          setData={setData}
           loading={loadingRegister}
-          resultRegister={resultRegister}
-          data={dataRegister}
+          data={data}
         />
         <FormGroup label={'Migrasi Member/Pindah Parent'} button={'Migrate'} form={['select', 'parent']} />
       </div>
