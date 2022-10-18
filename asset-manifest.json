@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/smlm-frontend/static/css/main.c9dc82f1.css",
+    "main.js": "/smlm-frontend/static/js/main.15c55afd.js",
+    "static/js/787.2d926414.chunk.js": "/smlm-frontend/static/js/787.2d926414.chunk.js",
+    "index.html": "/smlm-frontend/index.html",
+    "main.c9dc82f1.css.map": "/smlm-frontend/static/css/main.c9dc82f1.css.map",
+    "main.15c55afd.js.map": "/smlm-frontend/static/js/main.15c55afd.js.map",
+    "787.2d926414.chunk.js.map": "/smlm-frontend/static/js/787.2d926414.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c9dc82f1.css",
+    "static/js/main.15c55afd.js"
+  ]
+}
