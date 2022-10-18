@@ -8,7 +8,7 @@ import {populateError, populateSuccess} from './helpers';
 const App = () => {
   const dispatch = useDispatch();
   const {
-    loadingGetParent, dataParent, loadingCount, member, loadingMigrate,
+    loadingGetParent, dataParent, loadingGetById, member, loadingMigrate,
   } = useSelector((state) => state.member);
   const [getParent, setGetParent] = useState();
 
@@ -70,7 +70,7 @@ const App = () => {
           button={'Calculate = '}
           form={['select']}
           onSubmit={countBonus}
-          loading={loadingCount}
+          loading={loadingGetById}
           member={member}
           data={data}
           setData={setData}

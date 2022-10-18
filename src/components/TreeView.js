@@ -6,7 +6,7 @@ const TreeView = ({loading = true, member}) => {
   const renderTree = (data, level = 0, marginLeft = 2) => {
     const uList = [];
 
-    data.map((data, key) => {
+    data?.map((data, key) => {
       uList.push(
           <li className="mt-4" key={key}>
             <div className={`bg-lime-500 border-2 border-lime-800 text-white white p-4 inline-block`}>

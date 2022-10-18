@@ -7,7 +7,7 @@ export const getAllMember = createAsyncThunk(
     async (param, {rejectWithValue}) => {
       try {
         const res = await MemberService.getAll(param);
-        return res.data.data;
+        return res.data.data || res.data;
       } catch (error) {
         return rejectWithValue(error.message);
       };
@@ -19,7 +19,7 @@ export const getAllParent = createAsyncThunk(
     async (param, {rejectWithValue}) => {
       try {
         const res = await MemberService.getAllParent(param);
-        return res.data.data;
+        return res.data.data || res.data;
       } catch (error) {
         return rejectWithValue(error.message);
       };
@@ -31,7 +31,7 @@ export const register = createAsyncThunk(
     async (data, {rejectWithValue}) => {
       try {
         const res = await MemberService.register(data);
-        return res.data.data;
+        return res.data.data || res.data;
       } catch (error) {
         return rejectWithValue(
             _.isEmpty(error.response.data.message) ?
@@ -47,7 +47,7 @@ export const getById = createAsyncThunk(
     async (id, {rejectWithValue}) => {
       try {
         const res = await MemberService.get(id);
-        return res.data.data;
+        return res.data.data || res.data;
       } catch (error) {
         return rejectWithValue(
             _.isEmpty(error.response.data.message) ?
@@ -63,7 +63,7 @@ export const migrateMember = createAsyncThunk(
     async (data, {rejectWithValue}) => {
       try {
         const res = await MemberService.migrate(data);
-        return res.data.data;
+        return res.data.data || res.data;
       } catch (error) {
         return rejectWithValue(
             _.isEmpty(error.response.data.message) ?

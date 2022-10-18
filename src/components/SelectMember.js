@@ -12,8 +12,15 @@ const SelectMember = ({placeholder, ...props}) => {
   const loadOption = async () => {
     try {
       setLoading(true);
-      const res = await MemberServices.getAll(param);
-      setData(res.data.data.rows);
+      let res = [];
+
+      if (process.env.REACT_APP_WEBSTORAGE) {
+        res = JSON.parse(localStorage.getItem('member'));
+      } else {
+        res = await MemberServices.getAll(param);
+      }
+
+      setData(res?.data?.data?.rows || res);
     } catch (error) {
       populateError(error);
     } finally {
